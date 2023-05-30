@@ -8,7 +8,8 @@ public class Jugador : MonoBehaviour
     public float fuerzaSalto = 250;
     private new Rigidbody2D rigidbody2D;
     private Animator animator;
-    // Start is called before the first frame update
+    public GameManager gameManager;
+
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -27,9 +28,14 @@ public class Jugador : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Suelo")
+        if (collision.gameObject.CompareTag("Suelo"))
         {
             animator.SetBool("startSaltar", false);
+        }
+
+        if (collision.gameObject.CompareTag("Roca"))
+        {
+            gameManager.PlayerLives--;
         }
     }
 }
